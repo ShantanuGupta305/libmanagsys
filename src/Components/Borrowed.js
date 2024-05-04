@@ -22,10 +22,10 @@ const Borrowed = ({borrow}) => {
     dispatch(incBook({bookName,avalCount}));
   }
   return (
-    <div>
-        <span>Book Name:{bookName}</span>
-        <button onClick={handleReturn}>Return</button>
-    </div>
+    <tr>
+        <td>{bookName}</td>
+        <td><button onClick={handleReturn} style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Return</button></td>
+    </tr>
   )
 }
 

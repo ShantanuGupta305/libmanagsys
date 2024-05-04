@@ -3,6 +3,7 @@ import { userAction } from './Store/User-slice';
 import { useDispatch,useSelector } from 'react-redux';
 import { adminAction } from './Store/Admin-slice';
 import { useNavigate } from 'react-router-dom';
+import './CSS/auth.css';
 const Auth = () => {
     const [isLogin,setIsLogin]=useState(true);
     const [isRegister,setIsRegister]=useState(false);
@@ -188,18 +189,20 @@ const Auth = () => {
         });
     },[]);
   return (
-    <div>
+    <div className='authbox'>
         {isLogin && (
-            <form onSubmit={handleLogin}>
-                <label>Login As:</label>
-                <select name='authType' onChange={(e)=>{
-                    setAuthType(e.target.value);
-                    setIsUser(!isUser);
-                }} value={authType}>
-                    <option value='user'>user</option>
-                    <option value='admin'>admin</option>
-                </select>
-                <label>{isUser?<>UserName</>:<>Adminname</>}:</label>
+            <form className='login' onSubmit={handleLogin}>
+                <div className='auth-type'>
+                    <label>Login As:</label>
+                    <select name='authType' onChange={(e)=>{
+                        setAuthType(e.target.value);
+                        setIsUser(!isUser);
+                    }} value={authType}>
+                        <option value='user'>user</option>
+                        <option value='admin'>admin</option>
+                    </select>
+                </div>
+                <label className='form-label'>{isUser?<>UserName</>:<>Adminname</>}</label>
                 <input type='text' placeholder={isUser?'username':'adminname'} value={isUser?username:adminname} onChange={(e)=>{
                     if(isUser){
                         setUsername(e.target.value);
@@ -208,32 +211,39 @@ const Auth = () => {
                         setAdminname(e.target.value);
                     }
                 }} required/>
-                <label>Password:</label>
+                <label className='form-label'>Password</label>
                 <input type='password' placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <div>
-                    <span onClick={()=>{
-                        setIsLogin(false);
-                        setIsRegister(true);
-                    }}>Register </span>
-                    <span onClick={()=>{
+                <div className='auth-nav'>
+                    <span>
+                        Dont't have an account:
+                        <span className='nav-span' onClick={()=>{
+                            setIsLogin(false);
+                            setIsRegister(true);
+                        }}>Register </span>
+                    </span>
+                    <span className='nav-span' onClick={()=>{
                         setIsLogin(false);
                         setIsForgot(true);
                     }}>Forgot Password</span>
                 </div>
-                <button type='submit'>Login</button>
+                <div className='auth-buttons'>
+                    <button type='submit' style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Login</button>
+                </div>
             </form>
         )}
         {isRegister && (
-            <form onSubmit={handleRegister}>
-                <label>Register As:</label>
-                <select name='authType' onChange={(e)=>{
-                    setAuthType(e.target.value);
-                    setIsUser(!isUser);
-                }} value={authType}>
-                    <option value='user'>user</option>
-                    <option value='admin'>admin</option>
-                </select>
-                <label>{isUser?<>UserName</>:<>Adminname</>}:</label>
+            <form className='register' onSubmit={handleRegister}>
+                <div className='auth-type'>
+                    <label>Register As:</label>
+                    <select name='authType' onChange={(e)=>{
+                        setAuthType(e.target.value);
+                        setIsUser(!isUser);
+                    }} value={authType}>
+                        <option value='user'>user</option>
+                        <option value='admin'>admin</option>
+                    </select>
+                </div>
+                <label className='form-label'>{isUser?<>UserName</>:<>Adminname</>}</label>
                 <input type='text' placeholder={isUser?'username':'adminname'} value={isUser?username:adminname} onChange={(e)=>{
                     if(isUser){
                         setUsername(e.target.value);
@@ -242,30 +252,35 @@ const Auth = () => {
                         setAdminname(e.target.value);
                     }
                 }} required/>
-                <label>Password:</label>
+                <label className='form-label'>Password</label>
                 <input type='password' placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <label>Re-type password:</label>
+                <label className='form-label'>Re-type password</label>
                 <input type='password' placeholder='password' value={repassword} onChange={(e)=>setRepassword(e.target.value)} required/>
                 <div>
-                    <span onClick={()=>{
+                    Have an account:
+                    <span className='nav-span' onClick={()=>{
                         setIsRegister(false);
                         setIsLogin(true);
                     }}>Login</span>
                 </div>
-                <button type='submit'>Register</button>
+                <div className='auth-buttons'>
+                    <button type='submit' style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Register</button>
+                </div>
             </form>
         )}
         {isForgot && (
-            <form onSubmit={handleForgot}>
-                <label>Authentication Type:</label>
-                <select name='authType' onChange={(e)=>{
-                    setAuthType(e.target.value);
-                    setIsUser(!isUser);
-                }} value={authType}>
-                    <option value='user'>user</option>
-                    <option value='admin'>admin</option>
-                </select>
-                <label>{isUser?<>UserName</>:<>Adminname</>}:</label>
+            <form className='forgot' onSubmit={handleForgot}>
+                <div className='auth-type'>
+                    <label>Authentication Type:</label>
+                    <select name='authType' onChange={(e)=>{
+                        setAuthType(e.target.value);
+                        setIsUser(!isUser);
+                    }} value={authType}>
+                        <option value='user'>user</option>
+                        <option value='admin'>admin</option>
+                    </select>
+                </div>
+                <label className='form-label'>{isUser?<>UserName</>:<>Adminname</>}</label>
                 <input type='text' placeholder={isUser?'username':'adminname'} value={isUser?username:adminname} onChange={(e)=>{
                     if(isUser){
                         setUsername(e.target.value);
@@ -274,21 +289,29 @@ const Auth = () => {
                         setAdminname(e.target.value);
                     }
                 }} required/>
-                <label>New password:</label>
+                <label className='form-label'>New password</label>
                 <input type='password' placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <label>Re-type password:</label>
+                <label className='form-label'>Re-type password</label>
                 <input type='password' placeholder='password' value={repassword} onChange={(e)=>setRepassword(e.target.value)} required/>
-                <div>
-                    <span onClick={()=>{
-                        setIsForgot(false);
-                        setIsRegister(true);
-                    }}>Register </span>
-                    <span onClick={()=>{
-                        setIsForgot(false);
-                        setIsLogin(true);
-                    }}>Login </span>
+                <div className='auth-nav'>
+                    <span>
+                        Don't have an account:
+                        <span className='nav-span' onClick={()=>{
+                            setIsForgot(false);
+                            setIsRegister(true);
+                        }}>Register </span>
+                    </span>
+                    <span>
+                        Have an account:
+                        <span className='nav-span' onClick={()=>{
+                            setIsForgot(false);
+                            setIsLogin(true);
+                        }}>Login </span>
+                    </span>
                 </div>
-                <button type='submit'>Submit</button>
+                <div className='auth-buttons'>
+                    <button type='submit' style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Submit</button>
+                </div>
             </form>
         )}
     </div>

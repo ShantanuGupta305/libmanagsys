@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminAction } from './Store/Admin-slice';
 import { userAction } from './Store/User-slice';
+import './CSS/admin.css';
 const Admin = () => {
     const [isAdd,setIsAdd]=useState(false);
     const navigate=useNavigate();
@@ -49,26 +50,42 @@ const Admin = () => {
     },[]);
   return (
     <>
-        <div>
-            <div>
-              <button onClick={()=>{
-                let bool=false;
-                dispatch(logoutAdmin({adminname,bool}));
-                navigate('/');
-              }}>Logout</button>
-              <button onClick={()=>{
-                dispatch(deleteAdmin({adminname}));
-                console.log(`delete admin ${adminname}`);
-                navigate('/');
-              }}>Delete admin</button>
-            </div>
-            <p>Welcome {adminname}</p>
-            <button onClick={()=>setIsAdd(true)}>Add Book</button>
+        
+            <nav>
+              <p>Welcome Admin:{adminname}</p>
+              <ul>
+                <li onClick={()=>setIsAdd(true)}>Add Book</li>
+                <li onClick={()=>{
+                  let bool=false;
+                  dispatch(logoutAdmin({adminname,bool}));
+                  navigate('/');
+                }}>Logout</li>
+                <li onClick={()=>{
+                  dispatch(deleteAdmin({adminname}));
+                  console.log(`delete admin ${adminname}`);
+                  navigate('/');
+                }} style={{color:'red'}}>Delete admin</li>
+              </ul>
+            </nav>
             {isAdd && <Addbookmodal setIsAdd={setIsAdd}/>}
-            {books.map((book,index)=>{
-              return <Adminbooks key={index} book={book} />
-            })}
-        </div>
+            {books.length===0 && <h1>No Books Added</h1>}
+            {books.length!==0 &&(
+              <div className='books-section'>
+                <h1>Books</h1>
+                <table>
+                  <tr>
+                    <th>Book Name</th>
+                    <th>Total Quantity</th>
+                    <th>Edit Action</th>
+                    <th>Delete Action</th>
+                  </tr>
+                  {books.map((book,index)=>{
+                    return <Adminbooks key={index} book={book} isAdd={isAdd}/>
+                  })}
+                </table>
+              </div>
+            )}
+        
     </>
   )
 }

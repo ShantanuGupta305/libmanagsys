@@ -35,17 +35,17 @@ const Addbookmodal = ({setIsAdd}) => {
     }
   }
   return (
-    <div>
+    <div className='addbook-modal'>
         <div>
             <p>Add Book</p>
-            <button onClick={()=>setIsAdd(false)}>Close</button>
+            <button onClick={()=>setIsAdd(false)} style={{background:'red', color:'white', borderRadius:'0.2rem'}}>Close</button>
         </div>
         <form onSubmit={handleAdd}>
             <label>Book Name</label>
             <input type='text' placeholder='book name' value={bookName} onChange={(e)=>setBookName(e.target.value)} required/>
             <label>Quantity</label>
             <input type='number' placeholder='1' value={totalCount} onChange={(e)=>setTotalCount(e.target.value)} required/>
-            <button type='submit'>Add</button>
+            <button type='submit' style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Add</button>
         </form>
     </div>
   )

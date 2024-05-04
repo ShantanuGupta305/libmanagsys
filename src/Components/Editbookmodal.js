@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
-const Editbookmodal = ({setIsEdit,bookName,onEditAndDeleteBorrowedBook,editBook}) => {
+const Editbookmodal = ({setIsEdit,bookName,onEditAndDeleteBorrowedBook,editBook,isAdd}) => {
   const [totalCount,setTotalCount]=useState(1);
   const dispatch=useDispatch();
   const handleEdit=(e)=>{
@@ -19,15 +19,15 @@ const Editbookmodal = ({setIsEdit,bookName,onEditAndDeleteBorrowedBook,editBook}
     }
   }
   return (
-    <div>
+    <div className='editbook-modal'>
         <div>
             <p>Edit Book:<span>{bookName}</span></p>
-            <button onClick={()=>setIsEdit(false)}>Close</button>
+            <button onClick={()=>setIsEdit(false)} disabled={isAdd} style={{background:'red', color:'white', borderRadius:'0.2rem'}}>Close</button>
         </div>
         <form onSubmit={handleEdit}>
             <label>Book Quantity</label>
-            <input type='number' placeholder='1' value={totalCount} onChange={(e)=>setTotalCount(e.target.value)} required/>
-            <button type='submit'>Edit</button>
+            <input type='number' placeholder='1' value={totalCount} onChange={(e)=>setTotalCount(e.target.value)} disabled={isAdd} required/>
+            <button type='submit' disabled={isAdd} style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Edit</button>
         </form>
     </div>
   )

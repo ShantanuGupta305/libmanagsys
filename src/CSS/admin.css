@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+nav ul{
+    list-style: none;
+    display: flex;
+}
+nav ul li{
+    padding-inline: 0.5rem;
+    cursor: pointer;
+}
+.books-section{
+    width: 70vw;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.books-section table{
+    width: 100%;
+}
+.books-section table tr td{
+    text-align: center;
+}
+.addbook-modal{
+    position: fixed;
+    background: burlywood;
+    margin-inline: 30vw;
+    margin-top: 10vh;
+}
+.addbook-modal div{
+    display: flex;
+    justify-content: space-between;
+    background-color:thistle;
+}
+.editbook-modal{
+    background: burlywood;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+.editbook-modal div{
+    display: flex;
+    justify-content: space-around;
+    background-color:thistle;
+}
+.editbook-modal form{
+    display: flex;
+    justify-content: center;
+}
+@media screen and (max-width:1240px) {
+    .addbook-modal{
+        margin-inline: 43vw;
+    }
+    .addbook-modal form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media screen and (max-width:600px) {
+    .addbook-modal{
+        margin-inline: 0;
+        width: 100vw;
+    }
+    .editbook-modal form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

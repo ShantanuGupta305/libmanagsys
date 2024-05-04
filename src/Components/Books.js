@@ -31,16 +31,12 @@ const Books = ({book,username}) => {
     }
   }
   return (
-    <div>
-        <div>
-            <span>Book Name:{bookName} </span>
-            <span>Total:{totalCount} </span>
-            <span>Available:{avalCount} </span>
-        </div>
-        <div>
-            <button onClick={handleBorrow}>Borrow</button>
-        </div>
-    </div>
+    <tr>
+      <td>{bookName}</td>
+      <td>{totalCount}</td>
+      <td>{avalCount}</td>
+      <td><button onClick={handleBorrow} style={{background:'green', color:'white', borderRadius:'0.2rem'}}>Borrow</button></td>
+    </tr>
   )
 }
 

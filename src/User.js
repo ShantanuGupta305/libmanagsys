@@ -7,6 +7,7 @@ import { userAction } from './Store/User-slice'
 import { bookAction } from './Store/Book-slice'
 import { borrowAction } from './Store/Borrow-slice'
 import { adminAction } from './Store/Admin-slice'
+import './CSS/user.css';
 const User = () => {
   const {username}=useParams();
   const navigate=useNavigate();
@@ -72,27 +73,49 @@ const User = () => {
   },[]);
   return (
     <>  
-        <div>
-          <button onClick={()=>{
-            let bool=false;
-            dispatch(logoutUser({username,bool}));
-            navigate('/');
-          }}>Logout</button>
-          <button onClick={handleDeleteUser}>Delete User</button>
-        </div>
-        <div>
-            <p>Welcome {username}</p>
+        <nav>
+          <p>Welcome User:{username}</p>
+          <ul>
+            <li onClick={()=>{
+              let bool=false;
+              dispatch(logoutUser({username,bool}));
+              navigate('/');
+            }}>Logout</li>
+            <li onClick={handleDeleteUser} style={{color:'red'}} >Delete User</li>
+          </ul>
+        </nav>
+        {books.length!==0 &&(
+          <div className='books-section'>
             <h1>Books</h1>
-            {books.map((book,index)=>{
-              return <Books key={index} book={book} username={username}/>
-            })}
-        </div>
-        <div>
+            <table>
+              <tr>
+                <th>Book Name</th>
+                <th>Total Quantity</th>
+                <th>Available Quantity</th>
+                <th>Borrow Action</th>
+              </tr>
+              {books.map((book,index)=>{
+                return <Books key={index} book={book} username={username}/>
+              })}
+            </table>
+          </div>
+        )}
+        {books.length===0 &&(<h1>No Books Added</h1>)}
+        {borrows.filter(borrow=>borrow.username===username).length!==0 &&(
+          <div className='borrow-section'>
             <h1>Borrowed Books</h1>
-            {borrows.filter(borrow=>borrow.username===username).map((borrow,index)=>{
-              return <Borrowed key={index} borrow={borrow}/>
-            })}
-        </div>
+            <table>
+              <tr>
+                <th>Book Name</th>
+                <th>Return Action</th>
+              </tr>
+              {borrows.filter(borrow=>borrow.username===username).map((borrow,index)=>{
+                return <Borrowed key={index} borrow={borrow}/>
+              })}
+            </table>
+          </div>
+        )}
+        {borrows.filter(borrow=>borrow.username===username).length===0 &&(<h1>No Books Borrowed</h1>)}
     </>
   )
 }
